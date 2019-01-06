@@ -21,4 +21,4 @@ steps:
       mv *.gz gz/
       cd gz
       find . -name '*.gz' -type f -exec curl -u $(uploaduser) -T {} $(artifactoryurl) \;
-    displayName: Upload Artifactory
+  displayName: Upload Artifactory
