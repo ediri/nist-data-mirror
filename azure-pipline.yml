@@ -1,7 +1,7 @@
 pool: 'LIDL AEBI'
 
 variables:
-- group: ndist_group
+- group: nist-data-mirror-compile-variable-group
 
 steps:
 - task: DownloadSecureFile@1
@@ -15,13 +15,15 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     options: '-s $(settings_xml.secureFilePath)'
-    goals: 'clean package -P$(mavenProfile)'
+    goals: 'clean package'
 
 - bash: |
       cd target
+      ls -la 
       java -jar -Dhttps.proxyHost=$(proxy) -Dhttps.proxyPort=$(proxyport) nist-data-mirror.jar .
       mkdir gz
+      ls -la
       mv *.gz gz/
       cd gz
       find . -name '*.gz' -type f -exec curl -u $(uploaduser) -T {} $(artifactoryurl) \;
-  displayName: Upload Artifactory
+  displayName: Upload nist data to Artifactory
