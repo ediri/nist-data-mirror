@@ -1,1 +1,14 @@
+pool: 'LIDL AEBI'
 
+steps:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: settings.xml
+  name: settings_xml
+  
+- task: Maven@3
+  displayName: Build dockerfile
+  inputs:
+    mavenPomFile: 'pom.xml'
+    options: '-s $(settings_xml.secureFilePath)'
+    goals: 'clean package -P$(mavenProfile)'
