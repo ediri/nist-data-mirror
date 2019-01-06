@@ -7,7 +7,8 @@ steps:
   name: settings_xml
   
 - task: Maven@3
-  displayName: Build dockerfile
+  displayName: | 
+    A simple Java command-line utility to mirror the NVD (CPE/CVE XML and JSON) data from NIST.
   inputs:
     mavenPomFile: 'pom.xml'
     options: '-s $(settings_xml.secureFilePath)'
